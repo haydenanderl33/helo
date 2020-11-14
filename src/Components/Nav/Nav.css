@@ -1,0 +1,10 @@
+.Nav {
+    background-color: #FF9770;
+    height: 100vh;
+    width: 10vh;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+
+}
+

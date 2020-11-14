@@ -1,0 +1,26 @@
+.Auth {
+    background-color: #FFD670;
+    height: 20vh;
+    width: 30vw;
+    margin-left: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+}
+
+.Buttons {
+    padding: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
