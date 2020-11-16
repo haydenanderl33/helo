@@ -15,7 +15,7 @@ class Auth extends Component {
 
   toggleNewUser = () => {
     this.setState({
-      newUser: !this.state.newUser,
+      newUser: !this.state.newUser
     });
   };
 
@@ -25,14 +25,42 @@ class Auth extends Component {
     });
   };
 
+  login = async (e) => {
+    e.preventDefault()
+    const {username,password} = this.state
+    try {
+      const user = await axios.post('/api/auth/login', {username, password})
+      // alert(user);
+      console.log(user)
+      this.props.history.push('/dashboard')
+    }
+    catch(err) {
+        alert(err.response.request.response)
+    }
+  }
+  
+  
+  register = async (e) => {
+    e.preventDefault()
+    const {username, password} = this.state
+    try {
+      const user = await axios.post('/api/auth/register', {username,password})
+      alert(`Registered New ${user}`)
+      this.props.history.push('/dashboard')
+    }
+    catch(err) {
+      alert(err.response.request.response)
+    }
+  }
+
   render() {
     const { username, password } = this.state;
     return (
       <div className="Auth">
         {this.state.newUser ? (
           <div>
-            Register View
-            <form>
+            Register New User
+            <form onSubmit={(e) => this.register(e)}>
               <input
                 name="username"
                 value={username}
@@ -46,14 +74,14 @@ class Auth extends Component {
                 placeholder="Password"
                 onChange={(e) => this.changleHandler(e)}
               />
+            <button>Submit</button>
             </form>
             <button onClick={this.toggleNewUser}>Already a User</button>
-            <button>Submit</button>
           </div>
         ) : (
           <div>
             Login
-            <form>
+            <form onSubmit={(e) => this.login(e)}>
               <input
                 name="username"
                 value={username}
@@ -67,9 +95,9 @@ class Auth extends Component {
                 placeholder="Password"
                 onChange={(e) => this.changleHandler(e)}
               />
+            <button>Login</button>
             </form>
             <button onClick={this.toggleNewUser}>New User?</button>
-            <button>Login</button>
           </div>
         )}
       </div>
