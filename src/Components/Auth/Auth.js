@@ -1,6 +1,8 @@
 import "./Auth.css";
 import React, { Component } from "react";
 import axios from 'axios'
+import {connect} from 'react-redux'
+import {loginUser} from '../../ducks/reducer'
 
 class Auth extends Component {
   constructor() {
@@ -30,8 +32,8 @@ class Auth extends Component {
     const {username,password} = this.state
     try {
       const user = await axios.post('/api/auth/login', {username, password})
-      // alert(user);
-      console.log(user)
+      this.props.loginUser(user.data.id, user.data.username, user.data.profile_pic)
+      // console.log(user.data)
       this.props.history.push('/dashboard')
     }
     catch(err) {
@@ -46,6 +48,7 @@ class Auth extends Component {
     try {
       const user = await axios.post('/api/auth/register', {username,password})
       alert(`Registered New ${user}`)
+      this.props.loginUser(user.data.id, user.data.username, user.data.profile_pic)
       this.props.history.push('/dashboard')
     }
     catch(err) {
@@ -104,19 +107,6 @@ class Auth extends Component {
     );
   }
 }
-export default Auth;
 
-/* <form className="Auth">
-      <div>Username
-      <input name="username" value={username} onChange={()=> this.changeUsername()}/>
-      </div>
-      <div>Password  
-      <input/>
-      </div>
-      
-      <div className="Buttons">
-        <button>Login:</button>
-        <button>Register:</button>
-      </div>
+export default connect(null, {loginUser})(Auth);
 
-      </form>; */
