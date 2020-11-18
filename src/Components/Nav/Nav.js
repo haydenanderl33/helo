@@ -2,7 +2,6 @@ import './Nav.css';
 import React, { Component } from "react";
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {withRouter} from 'react-router-dom'
 
 class Nav extends Component {
   constructor(props) {
